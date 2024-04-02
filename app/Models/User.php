@@ -44,5 +44,13 @@ class User extends Authenticatable
 
     public function progress(){
         return $this->hasMany(Progress::class);
-    }   
+    } 
+    
+    public function getJWTIdentifier(){
+        return $this->getkey();
+    }
+
+    public function getJWTCustomClaims(){
+        return [];
+    }
 }
