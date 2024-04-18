@@ -19,7 +19,7 @@ class ProgressController extends Controller
     public function index()
     {
         try {
-            $progresses = Progress::where('user_id',Auth::id())->get();
+            $progresses = Progress::where('user_id', Auth::id())->get();
             return response()->json([
                 'status' => true,
                 'message' => 'progresses are accessible',

@@ -17,27 +17,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/unauthenticated',function(){
-    return response()->json(["error" => "User not authenticated"], 401); 
+Route::get('/unauthenticated', function () {
+    return response()->json(["error" => "User not authenticated"], 401);
 })->name('login');
 
 
-Route::get('/test',[ProgressController::class,'test']);
+Route::get('/test', [ProgressController::class, 'test']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/auth/register',[UserController::class,'createUser']);
-Route::post('/auth/login',[UserController::class,'loginUser']);
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/index',[ProgressController::class,'index']);
-    
-    Route::post('/auth/logout',[UserController::class,'logout']);
-    Route::post('/add',[ProgressController::class,'store']);
-    Route::patch('/update/{id}',[ProgressController::class,'update']);
-    Route::delete('/delete/{id}',[ProgressController::class,'destroy']);
-    Route::patch('/status/{id}',[ProgressController::class,'status']);
-    Route::resource('progress',[ProgressController::class])->only();
 
+
+Route::post('/auth/register', [UserController::class, 'createUser']);
+Route::post('/auth/login', [UserController::class, 'loginUser']);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/index', [ProgressController::class, 'index']);
+
+    Route::post('/auth/logout', [UserController::class, 'logout']);
+    Route::post('/add', [ProgressController::class, 'store']);
+    Route::patch('/update/{id}', [ProgressController::class, 'update']);
+    Route::delete('/delete/{id}', [ProgressController::class, 'destroy']);
+    Route::patch('/status/{id}', [ProgressController::class, 'status']);
+    // Route::apiResource('progress', [ProgressController::class])->except(['store', 'update', "destroy"]);
 });
